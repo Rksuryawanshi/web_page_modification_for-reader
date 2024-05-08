@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Opener</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+        }
+        input[type="text"] {
+            padding: 10px;
+            margin-right: 10px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Enter a Website URL to Open:</h2>
+        <form id="websiteForm">
+            <input type="text" id="websiteUrl" placeholder="Enter website URL">
+            <input type="submit" value="Open">
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("websiteForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent default form submission
+            var websiteUrl = document.getElementById("websiteUrl").value.trim();
+            if (websiteUrl !== "") {
+                window.open(websiteUrl, "_blank"); // Open the provided URL in a new tab
+            } else {
+                alert("Please enter a valid website URL."); // Alert if the input is empty
+            }
+        });
+    </script>
+</body>
+</html>
