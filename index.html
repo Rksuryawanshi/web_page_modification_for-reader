@@ -1,1 +1,55 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Embedded Website Viewer</title> <style> body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; } #container { position: relative; width: 100%; height: 100%; } #embedded-website { width: 100%; height: calc(100% - 40px); /* Adjust height to make space for input and button */ border: none; } #websiteInput { width: calc(100% - 120px); margin-right: 10px; } #loadButton { width: 100px; } </style> </head> <body> <div id="container"> <input type="text" id="websiteInput" placeholder="Enter website link"> <button id="loadButton" onclick="loadWebsite()">Load</button> <iframe id="embedded-website" src="" frameborder="0"></iframe> </div> <script> function loadWebsite() { var websiteLink = document.getElementById('websiteInput').value; var iframe = document.getElementById('embedded-website'); iframe.src = websiteLink; iframe.onload = function() { replaceWordsWithImages(iframe.contentWindow.document); }; } function replaceWordsWithImages(doc) { var replacements = { "Zhuo Fan": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPec_US5ppenpEPpx65799jxN1cx90jUZLzRSYH2Qlqw&s", }; for (var word in replacements) { if (replacements.hasOwnProperty(word)) { var images = doc.querySelectorAll('img[alt="' + word + '"]'); images.forEach(function(image) { image.src = replacements[word]; }); } } } </script> </body> </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Embedded Website Viewer</title>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+    }
+    #container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+    #embedded-website {
+        width: 100%;
+        height: calc(100% - 40px); /* Adjust height to make space for input and button */
+        border: none;
+    }
+    #websiteInput {
+        width: calc(100% - 120px);
+        margin-right: 10px;
+    }
+    #loadButton {
+        width: 100px;
+    }
+</style>
+</head>
+<body>
+<div id="container">
+    <input type="text" id="websiteInput" placeholder="Enter website link">
+    <button id="loadButton" onclick="loadWebsite()">Load</button>
+    <iframe id="embedded-website" src="" frameborder="0"></iframe>
+</div>
+<script>
+    function loadWebsite() {
+        var websiteLink = document.getElementById('websiteInput').value;
+        var iframe = document.getElementById('embedded-website');
+        iframe.src = websiteLink;
+    }
+
+    function replaceWordsWithImages() {
+        var iframeDoc = document.getElementById('embedded-website').contentWindow.document;
+        var html = iframeDoc.body.innerHTML;
+        var replacedHtml = html.replace(/Zhuo Fan/g, '<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPec_US5ppenpEPpx65799jxN1cx90jUZLzRSYH2Qlqw&s" alt="Zhuo Fan">');
+        iframeDoc.body.innerHTML = replacedHtml;
+    }
+    window.onload = replaceWordsWithImages; // Automatically replace words with images when the iframe is loaded
+</script>
+</body>
+</html>
