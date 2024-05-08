@@ -1,82 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website Opener with Word Replacement</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
-        }
-        .container {
-            text-align: center;
-        }
-        input[type="text"] {
-            padding: 10px;
-            margin-right: 10px;
-        }
-        input[type="submit"] {
-            padding: 10px 20px;
-            cursor: pointer;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Embedded Website Viewer</title>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+    }
+    #container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+    #embedded-website {
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+</style>
 </head>
 <body>
-    <div class="container">
-        <h2>Enter a Website URL to Open:</h2>
-        <form id="websiteForm">
-            <input type="text" id="websiteUrl" placeholder="Enter website URL">
-            <input type="submit" value="Open">
-        </form>
-    </div>
-
-    <script>
-        document.getElementById("websiteForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // Prevent default form submission
-            var websiteUrl = document.getElementById("websiteUrl").value.trim();
-            if (websiteUrl !== "") {
-                // Open the provided URL in a new tab
-                var newWindow = window.open(websiteUrl, "_blank");
-                // Function to replace words with images
-                function replaceWordsWithImages() {
-                    // Define replacement mappings (word to image URL)
-                    var replacements = {
-                        "apple": "https://via.placeholder.com/50?text=Apple",
-                        "banana": "https://via.placeholder.com/50?text=Banana",
-                        "orange": "https://via.placeholder.com/50?text=Orange"
-                        // Add more replacements as needed
-                    };
-                    // Iterate over all text nodes in the webpage
-                    newWindow.document.body.querySelectorAll("*").forEach(function(node) {
-                        if (node.nodeType === Node.TEXT_NODE) {
-                            var text = node.nodeValue;
-                            // Replace words with images
-                            Object.keys(replacements).forEach(function(word) {
-                                var regex = new RegExp(word, "gi");
-                                text = text.replace(regex, function(match) {
-                                    return '<img src="' + replacements[word] + '" alt="' + match + '" style="vertical-align: middle;">';
-                                });
-                            });
-                            node.nodeValue = text;
-                        }
-                    });
-                }
-                // Call the function after the webpage is loaded
-                newWindow.addEventListener("load", replaceWordsWithImages);
-            } else {
-                alert("Please enter a valid website URL."); // Alert if the input is empty
-            }
-        });
-    </script>
+<div id="container">
+    <input type="text" id="websiteInput" placeholder="Enter website link">
+    <button onclick="loadWebsite()">Load</button>
+    <iframe id="embedded-website" src="" frameborder="0"></iframe>
+</div>
+<script>
+    function loadWebsite() {
+        var websiteLink = document.getElementById('websiteInput').value;
+        var iframe = document.getElementById('embedded-website');
+        iframe.src = websiteLink;
+    }
+</script>
 </body>
 </html>
