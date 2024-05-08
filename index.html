@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website Opener</title>
+    <title>Website Opener with Word Replacement</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -45,7 +45,34 @@
             event.preventDefault(); // Prevent default form submission
             var websiteUrl = document.getElementById("websiteUrl").value.trim();
             if (websiteUrl !== "") {
-                window.open(websiteUrl, "_blank"); // Open the provided URL in a new tab
+                // Open the provided URL in a new tab
+                var newWindow = window.open(websiteUrl, "_blank");
+                // Function to replace words with images
+                function replaceWordsWithImages() {
+                    // Define replacement mappings (word to image URL)
+                    var replacements = {
+                        "apple": "https://via.placeholder.com/50?text=Apple",
+                        "banana": "https://via.placeholder.com/50?text=Banana",
+                        "orange": "https://via.placeholder.com/50?text=Orange"
+                        // Add more replacements as needed
+                    };
+                    // Iterate over all text nodes in the webpage
+                    newWindow.document.body.querySelectorAll("*").forEach(function(node) {
+                        if (node.nodeType === Node.TEXT_NODE) {
+                            var text = node.nodeValue;
+                            // Replace words with images
+                            Object.keys(replacements).forEach(function(word) {
+                                var regex = new RegExp(word, "gi");
+                                text = text.replace(regex, function(match) {
+                                    return '<img src="' + replacements[word] + '" alt="' + match + '" style="vertical-align: middle;">';
+                                });
+                            });
+                            node.nodeValue = text;
+                        }
+                    });
+                }
+                // Call the function after the webpage is loaded
+                newWindow.addEventListener("load", replaceWordsWithImages);
             } else {
                 alert("Please enter a valid website URL."); // Alert if the input is empty
             }
