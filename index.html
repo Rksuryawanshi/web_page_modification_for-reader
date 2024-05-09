@@ -42,7 +42,7 @@
         var iframe = document.getElementById('embedded-website');
         iframe.src = websiteLink;
         iframe.onload = function() {
-            setTimeout(replaceWordsWithImages, 1000); // Delay the replacement to ensure iframe content is fully loaded
+            setTimeout(replaceWordsWithImages, 5000); // Delay the replacement to ensure iframe content is fully loaded
         };
     }
 
