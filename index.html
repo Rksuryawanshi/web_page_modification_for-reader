@@ -46,7 +46,7 @@
     function replaceWordsWithImages() {
         var iframeDoc = document.getElementById('embedded-website').contentWindow.document;
         var html = iframeDoc.body.innerHTML;
-        var replacedHtml = html.replace(/Zhuo Fan/g, '<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPec_US5ppenpEPpx65799jxN1cx90jUZLzRSYH2Qlqw&s" alt="Zhuo Fan">');
+        var replacedHtml = html.replace(/Zhuo Fan/g, '<img src="Zhuo_fan.jpeg" alt="Zhuo Fan">');
         iframeDoc.body.innerHTML = replacedHtml;
     }
     window.onload = replaceWordsWithImages; // Automatically replace words with images when the iframe is loaded
