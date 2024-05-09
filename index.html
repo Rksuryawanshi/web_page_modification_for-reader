@@ -50,7 +50,7 @@
     function replaceWordsWithImages() {
         var iframeDoc = document.getElementById('embedded-website').contentWindow.document;
         var html = iframeDoc.body.innerHTML;
-        var replacedHtml = html.replace(/Zhuo Fan/g, '<img src="Zhuo_fan.jpeg" alt="Zhuo Fan">');
+        var replacedHtml = html.replace(/Zhuo/g, '<img src="Zhuo_fan.jpeg" alt="">');
         iframeDoc.body.innerHTML = replacedHtml;
     }
 </script>
