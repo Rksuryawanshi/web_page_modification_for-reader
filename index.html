@@ -41,6 +41,9 @@
         var websiteLink = document.getElementById('websiteInput').value;
         var iframe = document.getElementById('embedded-website');
         iframe.src = websiteLink;
+        iframe.onload = function() {
+            setTimeout(replaceWordsWithImages, 1000); // Delay the replacement to ensure iframe content is fully loaded
+        };
     }
 
     function replaceWordsWithImages() {
@@ -49,7 +52,6 @@
         var replacedHtml = html.replace(/Zhuo Fan/g, '<img src="Zhuo_fan.jpeg" alt="Zhuo Fan">');
         iframeDoc.body.innerHTML = replacedHtml;
     }
-    window.onload = replaceWordsWithImages; // Automatically replace words with images when the iframe is loaded
 </script>
 </body>
 </html>
